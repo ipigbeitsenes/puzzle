@@ -1,21 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-function CustomBtn(props) {
-  setNativeProps = (nativeProps) => {
-    _root.setNativeProps(nativeProps);
-  };
-
+const CustomBtn = React.forwardRef((props, ref) => {
   return (
-    <View
-      style={styles.num}
-      ref={(component) => (_root = component)}
-      {...props}
-    >
-      <Text style={styles.txtfont}>{props.txt}</Text>
-    </View>
+    <TouchableOpacity onPress={props.myfun}>
+      <View style={styles.num} ref={ref} className="CustomBtn">
+        <Text style={styles.txtfont}>{props.label}</Text>
+      </View>
+    </TouchableOpacity>
   );
-}
+});
 
 export default CustomBtn;
 
