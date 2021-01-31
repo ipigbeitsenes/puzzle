@@ -1,63 +1,76 @@
-import React, { useRef } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React from "react";
+import {
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import CustomBtn from "./components/CustomBtn";
 
 export default function App() {
-  //const boxone = useRef(0);
-  const boxsix = useRef(0);
-  const sixfun = () => {
-    boxsix.setNativeProps({ backgroundColor: "blue" });
+  const boxOne = React.useRef(null);
+  const boxTwo = React.useRef(null);
+  const boxThree = React.useRef(null);
+  const boxFour = React.useRef(null);
+  const boxFive = React.useRef(null);
+  const boxSix = React.useRef(null);
+  const boxSeven = React.useRef(null);
+  const boxEight = React.useRef(null);
+  const boxSpace = React.useRef(null);
+
+  const boxOnefun = () => {
+    boxOne.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
   };
 
-  /*  const onefun = () => {
-    boxone.current.style.backgroundColor = "blue";
-  }; */
+  const boxTwofun = () => {
+    boxTwo.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
+  };
 
-  /*  const sixfun = () => {
-    boxone.current.style.backgroundColor = "blue";
-  }; */
+  const boxThreefun = () => {
+    boxThree.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
+  };
+
+  const boxFourfun = () => {
+    boxFour.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
+  };
+
+  const boxFivefun = () => {
+    boxFive.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
+  };
+
+  const boxSixfun = () => {
+    boxSix.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
+  };
+  const boxSevenfun = () => {
+    boxSeven.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
+  };
+  const boxEightfun = () => {
+    boxEight.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
+  };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.puzzlcontainer}>
-        <TouchableOpacity>
-          <CustomBtn txt="1" myId="one" />
-        </TouchableOpacity>
+        <CustomBtn ref={boxOne} myfun={boxOnefun} label="1" myId="one" />
 
-        <TouchableOpacity>
-          <CustomBtn txt="2" myId="two" />
-        </TouchableOpacity>
+        <CustomBtn ref={boxTwo} myfun={boxTwofun} label="2" myId="two" />
 
-        <TouchableOpacity>
-          <CustomBtn txt="3" myId="three" />
-        </TouchableOpacity>
+        <CustomBtn ref={boxThree} myfun={boxThreefun} label="3" myId="three" />
 
-        <TouchableOpacity>
-          <CustomBtn txt="4" myId="four" />
-        </TouchableOpacity>
+        <CustomBtn ref={boxFour} myfun={boxFourfun} label="4" myId="four" />
 
-        <TouchableOpacity>
-          <CustomBtn txt="5" myId="five" />
-        </TouchableOpacity>
+        <CustomBtn ref={boxFive} myfun={boxFivefun} label="5" myId="five" />
 
-        <TouchableOpacity onPress={sixfun}>
-          <CustomBtn
-            forwardRef={(component) => (boxsix = component)}
-            txt="6"
-            myId="six"
-          />
-        </TouchableOpacity>
+        <CustomBtn ref={boxSix} myfun={boxSixfun} label="6" myId="six" />
 
-        <TouchableOpacity>
-          <CustomBtn txt="7" myId="seven" />
-        </TouchableOpacity>
+        <CustomBtn ref={boxSeven} myfun={boxSevenfun} label="7" myId="seven" />
 
-        <TouchableOpacity>
-          <CustomBtn txt="8" myId="eight" />
-        </TouchableOpacity>
+        <CustomBtn ref={boxEight} myfun={boxEightfun} label="8" myId="eight" />
 
         <View
-          id="space"
+          ref={boxSpace}
           style={{ height: 98, width: 100, backgroundColor: "#333333" }}
         >
           <Text style={styles.txtfont}></Text>
@@ -73,7 +86,7 @@ export default function App() {
           <Text>Start</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -88,8 +101,6 @@ const styles = StyleSheet.create({
   puzzlcontainer: {
     marginTop: 40,
     flex: 2,
-    //justifyContent: "flex-start",
-
     flexDirection: "row",
     flexWrap: "wrap",
     height: 300,
