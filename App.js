@@ -1,92 +1,52 @@
-import React from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  Text,
-  View,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import CustomBtn from "./components/CustomBtn";
 
 export default function App() {
-  const boxOne = React.useRef(null);
-  const boxTwo = React.useRef(null);
-  const boxThree = React.useRef(null);
-  const boxFour = React.useRef(null);
-  const boxFive = React.useRef(null);
-  const boxSix = React.useRef(null);
-  const boxSeven = React.useRef(null);
-  const boxEight = React.useRef(null);
-  const boxSpace = React.useRef(null);
+  const [positions, setPositions] = useState([1, 2, 3, 4, 5, 6, 7, 8, null]);
+  const [activePosition, setActivePosition] = useState();
 
-  const boxOnefun = () => {
-    boxOne.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
-  };
-
-  const boxTwofun = () => {
-    boxTwo.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
-  };
-
-  const boxThreefun = () => {
-    boxThree.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
-  };
-
-  const boxFourfun = () => {
-    boxFour.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
-  };
-
-  const boxFivefun = () => {
-    boxFive.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
-  };
-
-  const boxSixfun = () => {
-    boxSix.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
-  };
-  const boxSevenfun = () => {
-    boxSeven.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
-  };
-  const boxEightfun = () => {
-    boxEight.current.setNativeProps({ style: { backgroundColor: "#8A0" } });
+  const positChanger = () => {
+    positions.map((pos, ind) => {
+      if (pos === 6 && pos + 3 === null) {
+        setPositions(positions([1, 2, 3, 4, 5, null, 7, 8, 6]));
+      }
+    });
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.puzzlcontainer}>
-        <CustomBtn ref={boxOne} myfun={boxOnefun} label="1" myId="one" />
-
-        <CustomBtn ref={boxTwo} myfun={boxTwofun} label="2" myId="two" />
-
-        <CustomBtn ref={boxThree} myfun={boxThreefun} label="3" myId="three" />
-
-        <CustomBtn ref={boxFour} myfun={boxFourfun} label="4" myId="four" />
-
-        <CustomBtn ref={boxFive} myfun={boxFivefun} label="5" myId="five" />
-
-        <CustomBtn ref={boxSix} myfun={boxSixfun} label="6" myId="six" />
-
-        <CustomBtn ref={boxSeven} myfun={boxSevenfun} label="7" myId="seven" />
-
-        <CustomBtn ref={boxEight} myfun={boxEightfun} label="8" myId="eight" />
-
-        <View
-          ref={boxSpace}
-          style={{ height: 98, width: 100, backgroundColor: "#333333" }}
-        >
-          <Text style={styles.txtfont}></Text>
+    <View style={styles.container}>
+      <View style={styles.tittle}>
+        <View style={styles.tittleTop}>
+          <TouchableOpacity>
+            <Text style={styles.tittleTopTxt}> ﹤ </Text>
+          </TouchableOpacity>
+          <Text style={styles.tittle3x3}>3 X 3</Text>
+          <TouchableOpacity>
+            <Text style={styles.tittleTopTxt}> 🔊</Text>
+          </TouchableOpacity>
         </View>
-      </View>
 
-      <View style={styles.start}>
+        <Text style={{ fontSize: 30, color: "#00b300" }}> Target Pattern</Text>
+      </View>
+      <View style={styles.puzzlcontainer}>
+        {positions.map((posit, index) => (
+          <CustomBtn
+            key={index}
+            label={posit}
+            isActive={activePosition === posit}
+            onPress={positChanger}
+          />
+        ))}
+      </View>
+      <View>
         <TouchableOpacity>
-          <Text>Randomis</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text>Start</Text>
+          <View style={styles.start}>
+            <Text style={{ fontSize: 30 }}>Start</Text>
+          </View>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -97,16 +57,59 @@ const styles = StyleSheet.create({
     backgroundColor: "#800060",
     alignItems: "center",
     justifyContent: "center",
+
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 5,
+      width: 5,
+    },
+  },
+  tittle: {
+    flex: 0.8,
+    margin: 6,
+    // backgroundColor: "#99e",
+
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tittleTop: {
+    flex: 0.5,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: 400,
+  },
+  tittleTopTxt: {
+    fontSize: 20,
+    backgroundColor: "#932",
+    borderRadius: 5,
+    width: 35,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  tittle3x3: {
+    fontSize: 16,
+    fontWeight: "bold",
+    borderColor: "#006600",
+    borderWidth: 3,
+    borderRadius: 5,
+    width: 50,
+    paddingLeft: 6,
+    paddingTop: 5,
+    backgroundColor: "#ccc",
   },
   puzzlcontainer: {
-    marginTop: 40,
-    flex: 2,
+    flex: 2.2,
     flexDirection: "row",
     flexWrap: "wrap",
-    height: 300,
-    width: 320,
+    height: 250,
+    width: 318,
     borderColor: "#006600",
     borderWidth: 9,
+    borderRadius: 3,
   },
   num: {
     height: 80,
@@ -118,7 +121,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   start: {
-    paddingTop: 10,
     borderRadius: 5,
     marginTop: 40,
     marginBottom: 40,
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     flexWrap: "wrap",
     height: 53,
-    width: 300,
+    width: 200,
     backgroundColor: "#235641",
   },
 });
